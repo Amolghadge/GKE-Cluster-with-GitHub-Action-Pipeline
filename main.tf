@@ -17,7 +17,7 @@ provider "google" {
 # =====================================
 
 resource "google_container_cluster" "primary" {
-  name     = "${var.project_id}-gke"
+  name     = "${var.project_id}-gke1"
   location = var.region
 
   enable_autopilot = true

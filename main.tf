@@ -27,6 +27,7 @@ resource "google_container_cluster" "primary" {
   subnetwork = google_compute_subnetwork.subnet.name
 }
 
+/*
 # Separately managed node pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = "${google_container_cluster.primary.name}-node-pool"
@@ -43,7 +44,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
     labels = {
       env = var.project_id
-    }
+    } 
 
     machine_type = "e2-medium"
     tags         = ["gke-node", "${var.project_id}-gke"]
@@ -52,3 +53,4 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+*/

@@ -20,8 +20,6 @@ resource "google_container_cluster" "primary" {
   name     = "${var.project_id}-gke1"
   location = var.region
 
-  enable_autopilot = true
-
   network    = data.google_compute_network.vpc.self_link
   subnetwork = data.google_compute_subnetwork.subnet.self_link
 }

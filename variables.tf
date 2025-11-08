@@ -1,6 +1,6 @@
 variable "project_id" {
   description = "project id"
-  default     = "ornate-producer-477604-s3"
+  default     = "<Project_id>"
 }
 
 variable "region" {

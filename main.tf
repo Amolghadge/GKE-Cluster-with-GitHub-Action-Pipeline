@@ -12,24 +12,21 @@ provider "google" {
   region  = var.region
 }
 
-# GKE cluster
-resource "google_container_cluster" "primary" {
-  name                     = "${var.project_id}-gke"
-  location                 = var.region
-  
-  # We can't create a cluster with no node pool defined, but we want to only use
-  # separately managed node pools. So we create the smallest possible default
-  # node pool and immediately delete it.
-  
-  remove_default_node_pool = true
-  initial_node_count       = 1
+# =====================================
+# Autopilot GKE Cluster
+# =====================================
 
-  network    = google_compute_network.vpc1.name
-  subnetwork = google_compute_subnetwork.subnet1.name
+resource "google_container_cluster" "primary" {
+  name     = "${var.project_id}-gke"
+  location = var.region
+
+  enable_autopilot = true
+
+  network    = data.google_compute_network.vpc.self_link
+  subnetwork = data.google_compute_subnetwork.subnet.self_link
 }
 
 
-/*
 # Separately managed node pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = "${google_container_cluster.primary.name}-node-pool"
@@ -48,7 +45,7 @@ resource "google_container_node_pool" "primary_nodes" {
       env = var.project_id
     } 
 
-    machine_type = "e2-medium"
+    machine_type = "e2-micro"
     tags         = ["gke-node", "${var.project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"

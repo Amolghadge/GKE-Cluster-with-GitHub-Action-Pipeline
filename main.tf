@@ -5,11 +5,6 @@ terraform {
       version = "~> 4.0"
     }
   }
-/*
-  backend "gcs" {
-    bucket = "terraform-state-gke-cluster"
-    prefix = "terraform/state"
-  } */
 }
 
 provider "google" {
